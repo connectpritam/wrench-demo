@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   // title = 'wrench-demo';
   public customerData: FormGroup;
   public vehicleData: FormGroup;
-
+  months:any= ["01","02","03","04","05","06","07","08","09","10","11","12"];
+  years:any=["20","21","22","23","24","25","26","27","28","29","30"]
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   constructor(private fb: FormBuilder){
@@ -28,15 +29,16 @@ export class AppComponent implements OnInit {
       state: '',
       zip: ''
     }),
-    cards: this.fb.array([
+    cards: 
       this.fb.group({
         card_fName: '',
         card_lName: '',
         card_number: '',
-        card_expiry: '',
+        card_mm: '',
+        card_yyyy: '',
         card_cvv: ''
       })
-    ])
+  
     });
     this.vehicleData = this.fb.group({
       vehicles: this.fb.array([
@@ -53,7 +55,7 @@ export class AppComponent implements OnInit {
     return this.vehicleData.get("vehicles") as FormArray;
   }
   get userCreditCards() {
-    return this.customerData.get("cards") as FormArray;
+    return this.customerData.get("cards").value;
   }
   addNewVehicle(){
     let control = <FormArray> this.vehicleData.controls.vehicles;
@@ -70,24 +72,27 @@ export class AppComponent implements OnInit {
     let control = <FormArray> this.vehicleData.controls.vehicles;
     control.removeAt(index);
   }
-  addNewCard(){
-    let control = <FormArray> this.customerData.controls.cards;
-    control.push(
-      this.fb.group({
-        card_fName: '',
-        card_lName: '',
-        card_number: '',
-        card_expiry: '',
-        card_cvv: ''
-      })
-    )
-  }
-  deleteCard(index){
-    let control = <FormArray> this.customerData.controls.cards;
-    control.removeAt(index);
-  }
+  // addNewCard(){
+  //   let control = <FormArray> this.customerData.controls.cards;
+  //   control.push(
+  //     this.fb.group({
+  //       card_fName: '',
+  //       card_lName: '',
+  //       card_number: '',
+  //       card_mm: '',
+  //       card_yyyy: '',
+  //       card_cvv: ''
+  //     })
+  //   )
+  // }
+  // deleteCard(index){
+  //   let control = <FormArray> this.customerData.controls.cards;
+  //   control.removeAt(index);
+  // }
 
-
+  transform(cardNumber) {
+    return cardNumber.replace(/\s+/g, '').replace(/(\d{4})/g, '$1 ').trim();
+}
   ngOnInit(){
     this.firstFormGroup = this.fb.group({
       firstCtrl: ['', Validators.required]

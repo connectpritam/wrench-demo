@@ -1,116 +1,170 @@
-
 <div class="bounds">
-    
-  <div class="content" 
-       fxLayout="row" 
-       fxLayout.xs="column" 
-       fxFlexFill >
-       
-      <div fxFlex="15" class="sec1" fxHide.xs>
-          first-section
-      </div>
-      <div class="sec2" fxFlex="70" >
-        <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
+
+  <div class="content" fxLayout="row" fxLayout.lt-md="column" fxFlexFill>
+
+    <div fxFlex="15" class="sec1" fxHide.xs>
+      first-section
+    </div>
+    <div class="sec2" fxFlex="70">
+      <div class="container">
+        <mat-horizontal-stepper labelPosition="bottom"  #stepper>
           <mat-step [stepControl]="customerData">
             <ng-template matStepLabel>Personal Details</ng-template>
-            <div class="personal-details" fxLayoutAlign="center center" >
-              <form class="customer-details" [formGroup]="customerData">
-                <div class="name-details">
-                 <h5>Personal Details</h5>
-                  <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="2em">
-                    <mat-form-field class="input-field" fxFlex="50%">
-                      <mat-label>First Name</mat-label>
-                      <input matInput placeholder="First Name"  formControlName="fName" required>
-                    </mat-form-field>
-                    <mat-form-field class="input-field" fxFlex="50%">
-                      <mat-label>Last Name</mat-label>
-                      <input matInput placeholder="Last name"  formControlName="lName" required>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="address-details"  formGroupName="address">
-                  <h5>Address Details</h5>
-                   <div class="flex-container" fxLayout="column" fxLayoutAlign="space-evenly stretch" fxFlexFill>
-                     <mat-form-field class="input-field">
-                       <mat-label>House/ Building/ Street</mat-label>
-                       <input matInput placeholder="House/ Building/ Street"  formControlName="street" required>
-                     </mat-form-field>
-                     <mat-form-field class="input-field">
-                      <mat-label>Area/ Locality</mat-label>
-                      <input matInput placeholder="Area/ Locality"  formControlName="area" required>
-                    </mat-form-field>
-                   </div>
-                   <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxFlexFill>
-                    <mat-form-field class="input-field">
-                      <mat-label>City</mat-label>
-                      <input matInput placeholder="City"  formControlName="city" required>
-                    </mat-form-field>
-                    <mat-form-field class="input-field">
-                     <mat-label>State</mat-label>
-                     <input matInput placeholder="State"  formControlName="state" required>
-                   </mat-form-field>
-                   <mat-form-field class="input-field">
-                    <mat-label>ZIP</mat-label>
-                    <input matInput placeholder="ZIP"  formControlName="zip" required>
+
+            <div fxLayout="column" [formGroup]="customerData">
+              <div class="personal-details shadow-box">
+
+                <h3>Personal Details</h3>
+
+                <div fxLayout="row" fxLayout.xs="column" fxLayoutGap.gt-xs="2em" fxLayoutGap.lt-md="0.5em">
+                  <mat-form-field class="input-field" fxFlex>
+                    <mat-label>First Name</mat-label>
+                    <input matInput placeholder="First Name" formControlName="fName" required>
                   </mat-form-field>
-                  </div>
+                  <mat-form-field class="input-field" fxFlex>
+                    <mat-label>Last Name</mat-label>
+                    <input matInput placeholder="Last name" formControlName="lName" required>
+                  </mat-form-field>
                 </div>
-                <div class="card-details" formArrayName="cards">
-                  <h5>Card Details</h5>
-                  <!-- appearance="outline" -->
-                  <div *ngFor="let cards of userCreditCards.controls; let i= index">
-                    <div class="card" [formGroupName]="i">
-                      <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="2em">
-                        <mat-form-field class="input-field" fxFlex="45%" appearance="outline">
-                          <mat-label>First Name</mat-label>
-                          <input matInput placeholder="First Name"  formControlName="card_fName" required>
-                        </mat-form-field>
-                        <mat-form-field class="input-field" fxFlex="45%" appearance="outline">
-                          <mat-label>Last Name</mat-label>
-                          <input matInput placeholder="Last name"  formControlName="card_lName" required>
-                        </mat-form-field>
-                        <button *ngIf="i" (click)="deleteCard(i)" style="background:red; color:white;border: 1px solid black;    height: fit-content;
-                        float: right;"> X Delete card</button>
-                      </div>
-                      <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="2em">
-                        <mat-form-field class="input-field" fxFlex="33%" appearance="outline">
-                          <mat-label>Card Number</mat-label>
-                          <input matInput placeholder="Card Number"  formControlName="card_number" required>
-                        </mat-form-field>
-                        <mat-form-field class="input-field" fxFlex="33%" appearance="outline">
+              </div>
+              <hr>
+              <div class="address-details shadow-box" formGroupName="address">
+                <h3>Address Details</h3>
+                <div fxLayout="column">
+                  <mat-form-field class="input-field" fxFlex>
+                    <mat-label>House/ Building/ Street</mat-label>
+                    <input matInput placeholder="House/ Building/ Street" formControlName="street" required>
+                  </mat-form-field>
+                  <mat-form-field class="input-field" fxFlex>
+                    <mat-label>Area/ Locality</mat-label>
+                    <input matInput placeholder="Area/ Locality" formControlName="area" required>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap.gt-xs="2em" fxLayoutGap.lt-md="0.5em">
+                  <mat-form-field class="input-field" fxFlex>
+                    <mat-label>City</mat-label>
+                    <input matInput placeholder="City" formControlName="city" required>
+                  </mat-form-field>
+                  <mat-form-field class="input-field" fxFlex>
+                    <mat-label>State</mat-label>
+                    <input matInput placeholder="State" formControlName="state" required>
+                  </mat-form-field>
+                  <mat-form-field class="input-field" fxFlex>
+                    <mat-label>ZIP</mat-label>
+                    <input matInput placeholder="ZIP" formControlName="zip" required>
+                  </mat-form-field>
+                </div>
+              </div>
+              <hr>
+              <div class="card-details shadow-box" formGroupName="cards">
+                <h3>Credit Card Details</h3>
+                <div fxLayout="row" fxLayout.lt-md="column">
+                  <div class="form-section" fxFlex="50" fxLayout="column">
+                    <mat-form-field class="input-field" fxFlex appearance="outline">
+                      <mat-label>Card Number</mat-label>
+                      <input matInput placeholder="Card Number" maxlength="16" formControlName="card_number" required>
+                    </mat-form-field>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="1em">
+                      <mat-form-field class="input-field" fxFlex="50" appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input matInput placeholder="First Name" formControlName="card_fName" required>
+                      </mat-form-field>
+                      <mat-form-field class="input-field" fxFlex="50" appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput placeholder="Last name" formControlName="card_lName" required>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5em">
+                      <mat-form-field class="input-field" fxFlex="33" appearance="outline">
+                        <mat-label>Expiry Month</mat-label>
+                        <input matInput placeholder="MM" maxlength="2" formControlName="card_mm" required>
+                      </mat-form-field>
+                      <mat-form-field class="input-field" fxFlex="33" appearance="outline">
+                        <mat-label>Expiry Year</mat-label>
+                        <input matInput placeholder="YYYY" maxlength="4" formControlName="card_yyyy" required>
+                      </mat-form-field>
+                      <mat-form-field class="input-field" fxFlex="33" appearance="outline">
+                        <mat-label>CVV</mat-label>
+                        <input matInput placeholder="CVV" maxlength="4" formControlName="card_cvv" required>
+                      </mat-form-field>
+                      <!-- <mat-form-field class="input-field" fxFlex appearance="outline">
                           <mat-label>Expiry</mat-label>
-                          <input matInput placeholder="MM/DD"  formControlName="card_expiry" required>
-                        </mat-form-field>
-                        <mat-form-field class="input-field" fxFlex="33%" appearance="outline">
-                          <mat-label>CVV</mat-label>
-                          <input matInput placeholder="CVV"  formControlName="card_cvv" required>
-                        </mat-form-field>
-                      </div>
-                      <hr>
+                          <mat-select formControlName="card_mm" placeholder="Select month">
+                            <mat-option *ngFor="let mm of months" [value]="mm">
+                              {{mm}}
+                            </mat-option>
+                          </mat-select>
+                          
+                        </mat-form-field> -->
                     </div>
                   </div>
-                  <br>
-                  <button (click)="addNewCard()" style="position: relative;width: 100%; margin:0 auto">Add another Card</button>
+                  <div class="card-vis" fxFlex="50">
+
+                    <div class="card" *ngIf="userCreditCards.card_number">
+                      <div class="bank-name" title="title_card">Credit Card</div>
+                      <div class="chip">
+                        <div class="side left"></div>
+                        <div class="side right"></div>
+                        <div class="vertical top"></div>
+                        <div class="vertical bottom"></div>
+                      </div>
+                      <div class="data">
+                        <div class="pan" title="Card Number">
+                          {{userCreditCards.card_number }}
+                        </div>
+                        <div class="first-digits"></div>
+                        <div class="exp-date-wrapper">
+                          <div class="left-label">EXPIRES END</div>
+                          <div class="exp-date">
+                            <div class="upper-labels">MONTH/YEAR</div>
+                            <div class="date" title="01/17">{{ userCreditCards.card_mm }}/{{ userCreditCards.card_yyyy }}</div>
+                          </div>
+                        </div>
+                        <div class="name-on-card" title="John Doe">{{ userCreditCards.card_fName }} {{ userCreditCards.card_lName }}</div>
+                      </div>
+                      <div class="lines-down"></div>
+                      <div class="lines-up"></div>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </div>
-        
-          </mat-step>
-          <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Vehicle Details</ng-template>
-              <mat-form-field class="input-field">
-                <mat-label>Address</mat-label>
-                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
               </div>
-            </form>
+              <button mat-stroked-button class="button" matStepperNext>Next</button>
+            </div>
+
+          </mat-step>
+          <mat-step [stepControl]="vehicleData">
+            <ng-template matStepLabel>Vehicle Details</ng-template>
+            <div class="vehicle-details" fxLayout="column" [formGroup]="vehicleData">
+              <h3>Enter your vehicle details</h3>
+              <div formArrayName="vehicles">
+                <div *ngFor="let cars of usercars.controls; let i= index">
+                  <div class="car shadow-box" [formGroupName]="i">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGaps="2em" fxLayoutGap.lt-md="0.5em">
+                      <mat-form-field class="input-field" appearance="outline" fxFlex>
+                        <mat-label>Car Model</mat-label>
+                        <input matInput placeholder="GT 70D, CLA 200S etc"  formControlName="model" required>
+                      </mat-form-field>
+                      <mat-form-field class="input-field" appearance="outline" fxFlex>
+                        <mat-label>Car Make</mat-label>
+                        <input matInput placeholder="Honda, BMW, etc."  formControlName="make" required>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGaps="2em" fxLayoutGap.lt-md="0.5em">
+                      <mat-form-field class="input-field" appearance="outline" fxFlex>
+                        <mat-label>Year of Purchase</mat-label>
+                        <input matInput placeholder="1998, 2002 etc."  formControlName="year" required>
+                      </mat-form-field>
+                      <mat-form-field class="input-field" appearance="outline" fxFlex>
+                        <mat-label>Total Run</mat-label>
+                        <input matInput placeholder="kilometeres completed"  formControlName="kms" required>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <button (click)="addNewVehicle()" style="position: relative;width: 100%; margin:0 auto">Add another Vehicle</button>
+              </div>
+
+            </div>
           </mat-step>
           <mat-step>
             <ng-template matStepLabel>Summary</ng-template>
@@ -122,10 +176,11 @@
           </mat-step>
         </mat-horizontal-stepper>
       </div>
-      <div fxFlex="15" class="sec3"  fxHide.xs>
-          third-section
-      </div>
-      
+    </div>
+    <div fxFlex="15" class="sec3" fxHide.xs>
+      third-section
+    </div>
+
   </div>
-  
+
 </div>

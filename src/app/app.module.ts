@@ -7,11 +7,13 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import {MatSelectModule} from '@angular/material/select';
 import { AppComponent } from './app.component';
+import { CreditCardVisComponent } from './credit-card-vis/credit-card-vis.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CreditCardVisComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,8 @@ import { AppComponent } from './app.component';
     MatStepperModule,
     MatIconModule,
     MatInputModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,38 +1,131 @@
-<mat-horizontal-stepper labelPosition="bottom" linear #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <ng-template matStepLabel>Personal Details</ng-template>
-    <div class="personal-details">
-      Personal Details
-    </div>
-    <form [formGroup]="firstFormGroup">
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="firstCtrl" placeholder="Last name, First name" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+
+<div class="bounds">
+    
+  <div class="content" 
+       fxLayout="row" 
+       fxLayout.xs="column" 
+       fxFlexFill >
+       
+      <div fxFlex="15" class="sec1" fxHide.xs>
+          first-section
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Vehicle Details</ng-template>
-      <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+      <div class="sec2" fxFlex="70" >
+        <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
+          <mat-step [stepControl]="customerData">
+            <ng-template matStepLabel>Personal Details</ng-template>
+            <div class="personal-details" fxLayoutAlign="center center" >
+              <form class="customer-details" [formGroup]="customerData">
+                <div class="name-details">
+                 <h5>Personal Details</h5>
+                  <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutGap="2em">
+                    <mat-form-field class="input-field" fxFlex="50%">
+                      <mat-label>First Name</mat-label>
+                      <input matInput placeholder="First Name"  formControlName="fName" required>
+                    </mat-form-field>
+                    <mat-form-field class="input-field" fxFlex="50%">
+                      <mat-label>Last Name</mat-label>
+                      <input matInput placeholder="Last name"  formControlName="lName" required>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="address-details"  formGroupName="address">
+                  <h5>Address Details</h5>
+                   <div class="flex-container" fxLayout="column" fxLayoutAlign="space-evenly stretch" fxFlexFill>
+                     <mat-form-field class="input-field">
+                       <mat-label>House/ Building/ Street</mat-label>
+                       <input matInput placeholder="House/ Building/ Street"  formControlName="street" required>
+                     </mat-form-field>
+                     <mat-form-field class="input-field">
+                      <mat-label>Area/ Locality</mat-label>
+                      <input matInput placeholder="Area/ Locality"  formControlName="area" required>
+                    </mat-form-field>
+                   </div>
+                   <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" fxFlexFill>
+                    <mat-form-field class="input-field">
+                      <mat-label>City</mat-label>
+                      <input matInput placeholder="City"  formControlName="city" required>
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
+                     <mat-label>State</mat-label>
+                     <input matInput placeholder="State"  formControlName="state" required>
+                   </mat-form-field>
+                   <mat-form-field class="input-field">
+                    <mat-label>ZIP</mat-label>
+                    <input matInput placeholder="ZIP"  formControlName="zip" required>
+                  </mat-form-field>
+                  </div>
+                </div>
+                <div class="card-details" formArrayName="cards">
+                  <h5>Card Details</h5>
+                  <!-- appearance="outline" -->
+                  <div *ngFor="let cards of userCreditCards.controls; let i= index">
+                    <div class="card" [formGroupName]="i">
+                      <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="2em">
+                        <mat-form-field class="input-field" fxFlex="45%" appearance="outline">
+                          <mat-label>First Name</mat-label>
+                          <input matInput placeholder="First Name"  formControlName="card_fName" required>
+                        </mat-form-field>
+                        <mat-form-field class="input-field" fxFlex="45%" appearance="outline">
+                          <mat-label>Last Name</mat-label>
+                          <input matInput placeholder="Last name"  formControlName="card_lName" required>
+                        </mat-form-field>
+                        <button *ngIf="i" (click)="deleteCard(i)" style="background:red; color:white;border: 1px solid black;    height: fit-content;
+                        float: right;"> X Delete card</button>
+                      </div>
+                      <div class="flex-container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center stretch" fxLayoutGap="2em">
+                        <mat-form-field class="input-field" fxFlex="33%" appearance="outline">
+                          <mat-label>Card Number</mat-label>
+                          <input matInput placeholder="Card Number"  formControlName="card_number" required>
+                        </mat-form-field>
+                        <mat-form-field class="input-field" fxFlex="33%" appearance="outline">
+                          <mat-label>Expiry</mat-label>
+                          <input matInput placeholder="MM/DD"  formControlName="card_expiry" required>
+                        </mat-form-field>
+                        <mat-form-field class="input-field" fxFlex="33%" appearance="outline">
+                          <mat-label>CVV</mat-label>
+                          <input matInput placeholder="CVV"  formControlName="card_cvv" required>
+                        </mat-form-field>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <br>
+                  <button (click)="addNewCard()" style="position: relative;width: 100%; margin:0 auto">Add another Card</button>
+                </div>
+                <div>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </div>
+        
+          </mat-step>
+          <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Vehicle Details</ng-template>
+              <mat-form-field class="input-field">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          <mat-step>
+            <ng-template matStepLabel>Summary</ng-template>
+            <p>You are now done.</p>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
       </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Summary</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+      <div fxFlex="15" class="sec3"  fxHide.xs>
+          third-section
+      </div>
+      
+  </div>
+  
+</div>

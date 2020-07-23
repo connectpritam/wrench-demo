@@ -6,7 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./credit-card-vis.component.scss']
 })
 export class CreditCardVisComponent implements OnInit {
-  // @Input() cardNumber: string;
+  @Input() cardDetails:any;
+  // @Input() cardNumber;
+  // @Input() fName;
+
 
   constructor() { }
 

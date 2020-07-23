@@ -10,6 +10,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSelectModule} from '@angular/material/select';
 import { AppComponent } from './app.component';
 import { CreditCardVisComponent } from './credit-card-vis/credit-card-vis.component';
+import {MatButtonModule} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+import {MatToolbarModule} from '@angular/material/toolbar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +28,10 @@ import { CreditCardVisComponent } from './credit-card-vis/credit-card-vis.compon
     MatIconModule,
     MatInputModule,
     MatDatepickerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule,
+    MatCardModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

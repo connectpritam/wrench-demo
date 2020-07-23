@@ -1,16 +1,15 @@
+<mat-toolbar>Customer On-boarding Form</mat-toolbar>
+
 <div class="bounds">
-
   <div class="content" fxLayout="row" fxLayout.lt-md="column" fxFlexFill>
-
     <div fxFlex="15" class="sec1" fxHide.xs>
-      first-section
     </div>
     <div class="sec2" fxFlex="70">
       <div class="container">
-        <mat-horizontal-stepper labelPosition="bottom"  #stepper>
+        <mat-horizontal-stepper labelPosition="bottom" linear #stepper>
+
           <mat-step [stepControl]="customerData">
             <ng-template matStepLabel>Personal Details</ng-template>
-
             <div fxLayout="column" [formGroup]="customerData">
               <div class="personal-details shadow-box">
 
@@ -58,7 +57,7 @@
               <hr>
               <div class="card-details shadow-box" formGroupName="cards">
                 <h3>Credit Card Details</h3>
-                <div fxLayout="row" fxLayout.lt-md="column">
+                <div fxLayout="row" fxLayout.md="column" fxLayout.lt-md="column">
                   <div class="form-section" fxFlex="50" fxLayout="column">
                     <mat-form-field class="input-field" fxFlex appearance="outline">
                       <mat-label>Card Number</mat-label>
@@ -99,47 +98,25 @@
                     </div>
                   </div>
                   <div class="card-vis" fxFlex="50">
-
-                    <div class="card" *ngIf="userCreditCards.card_number">
-                      <div class="bank-name" title="title_card">Credit Card</div>
-                      <div class="chip">
-                        <div class="side left"></div>
-                        <div class="side right"></div>
-                        <div class="vertical top"></div>
-                        <div class="vertical bottom"></div>
-                      </div>
-                      <div class="data">
-                        <div class="pan" title="Card Number">
-                          {{userCreditCards.card_number }}
-                        </div>
-                        <div class="first-digits"></div>
-                        <div class="exp-date-wrapper">
-                          <div class="left-label">EXPIRES END</div>
-                          <div class="exp-date">
-                            <div class="upper-labels">MONTH/YEAR</div>
-                            <div class="date" title="01/17">{{ userCreditCards.card_mm }}/{{ userCreditCards.card_yyyy }}</div>
-                          </div>
-                        </div>
-                        <div class="name-on-card" title="John Doe">{{ userCreditCards.card_fName }} {{ userCreditCards.card_lName }}</div>
-                      </div>
-                      <div class="lines-down"></div>
-                      <div class="lines-up"></div>
-                    </div>
+                    <app-credit-card-vis [cardDetails]="userCreditCards"  *ngIf="userCreditCards.card_number"></app-credit-card-vis>
+                   
                   </div>
                 </div>
               </div>
-              <button mat-stroked-button class="button" matStepperNext>Next</button>
+              <button class="mt-2" mat-raised-button color="primary" matStepperNext>Next</button>
             </div>
-
           </mat-step>
+
           <mat-step [stepControl]="vehicleData">
             <ng-template matStepLabel>Vehicle Details</ng-template>
             <div class="vehicle-details" fxLayout="column" [formGroup]="vehicleData">
-              <h3>Enter your vehicle details</h3>
+  
               <div formArrayName="vehicles">
-                <div *ngFor="let cars of usercars.controls; let i= index">
+                <div *ngFor="let cars of userCars.controls; let i= index">
+
                   <div class="car shadow-box" [formGroupName]="i">
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGaps="2em" fxLayoutGap.lt-md="0.5em">
+                    <h3>Enter your vehicle details</h3>
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2em" fxLayoutGap.lt-md="0.5em">
                       <mat-form-field class="input-field" appearance="outline" fxFlex>
                         <mat-label>Car Model</mat-label>
                         <input matInput placeholder="GT 70D, CLA 200S etc"  formControlName="model" required>
@@ -149,7 +126,7 @@
                         <input matInput placeholder="Honda, BMW, etc."  formControlName="make" required>
                       </mat-form-field>
                     </div>
-                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGaps="2em" fxLayoutGap.lt-md="0.5em">
+                    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2em" fxLayoutGap.lt-md="0.5em">
                       <mat-form-field class="input-field" appearance="outline" fxFlex>
                         <mat-label>Year of Purchase</mat-label>
                         <input matInput placeholder="1998, 2002 etc."  formControlName="year" required>
@@ -158,29 +135,87 @@
                         <mat-label>Total Run</mat-label>
                         <input matInput placeholder="kilometeres completed"  formControlName="kms" required>
                       </mat-form-field>
+
+                    
                     </div>
+                    <button *ngIf="i" (click)="deleteVehicle(i)" mat-mini-fab color="warn" style="float:right"><mat-icon>delete_outline</mat-icon></button>
+                   
                   </div>
                 </div>
-                <button (click)="addNewVehicle()" style="position: relative;width: 100%; margin:0 auto">Add another Vehicle</button>
+                <br> <br>
+                <button mat-stroked-button color="primary" (click)="addNewVehicle()" style="position: relative;width: 100%; margin:10px auto">Add another Vehicle</button>
               </div>
+              <div class="mt-2" fxLayout="row" fxLayoutGap="1em">
+              <button  mat-raised-button color="accent" matStepperPrevious fxFlex>Back</button>
+              <button  mat-raised-button color="primary" matStepperNext fxFlex>Next</button>
 
+              </div>
             </div>
           </mat-step>
+
           <mat-step>
             <ng-template matStepLabel>Summary</ng-template>
-            <p>You are now done.</p>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
+            <div class="customer-summary shadow-box" fxLayout="column">
+              <h1>Summary</h1>
+            <fieldset class="customer-summary">
+              <legend>&nbsp; Customer Summary &nbsp;</legend>
+              <div fxLayout="row" fxLayout.xs="column">
+                <div fxFlex style="text-align:left; line-height: 2em;">
+                   <h2>{{userDetails.fName}} {{userDetails.lName}}</h2>
+                   <p>
+                    {{userDetails.address.street}},
+                     <br>
+                     {{userDetails.address.area}} ,
+                     <br>
+                     {{userDetails.address.city}}, {{userDetails.address.state}}
+                    <br>
+                    ZIP: {{userDetails.address.zip}}
+                   </p>
+                </div>
+                <div fxFlex style="opacity: 0.75;">
+                  <app-credit-card-vis [cardDetails]="userCreditCards"  *ngIf="userCreditCards.card_number"></app-credit-card-vis>
+              </div>
+              </div>
+            </fieldset>
+            <fieldset class="vehicle-summary mt-2">
+              <legend>&nbsp; Vehicle Summary &nbsp;</legend>
+              <div fxLayout="row" fxLayout.xs="column" *ngFor="let cars of userCars.controls; let i= index">
+               
+                  <mat-card class="vehicle-card" fxFlex="100%">
+                    <mat-card-header style="text-align: left;">
+                      <mat-card-title>{{i+1}}.  {{userCars.controls[i].get('model').value}} </mat-card-title>
+                      <mat-card-subtitle>Manufactured by {{userCars.controls[i].get('make').value}}</mat-card-subtitle>
+                    </mat-card-header>
+                  <mat-card-content fxLayout="row">
+                    <div fxFlex="50">
+                      <span class="material-icons">
+                        schedule
+                        </span>
+                        <br>
+                        <h3>{{userCars.controls[i].get('year').value}}</h3>
+                      </div>
+                    <div fxFlex="50">
+                      <span class="material-icons">
+                        add_road
+                        </span>
+                        <br>
+                        <h3>{{userCars.controls[i].get('kms').value}} kms</h3>
+                      </div>
+                    </mat-card-content>
+                  </mat-card>
+               
+              </div>
+            </fieldset>
+            <button class="mt-2" mat-raised-button color="accent" matStepperPrevious fxFlex>Back</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>
       </div>
     </div>
     <div fxFlex="15" class="sec3" fxHide.xs>
-      third-section
+      
     </div>
 
   </div>
 
-</div>
+</div> 

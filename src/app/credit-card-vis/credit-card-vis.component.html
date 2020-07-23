@@ -1,5 +1,6 @@
-<div class="card">
-    <div class="bank-name" title="BestBank">BestBank</div>
+<div class="card" >
+    
+    <div class="bank-name" title="Card Title">Credit Card</div>
     <div class="chip">
         <div class="side left"></div>
         <div class="side right"></div>
@@ -7,17 +8,19 @@
         <div class="vertical bottom"></div>
     </div>
     <div class="data">
-        <div class="pan" title="4123 4567 8910 1112">4123 4567 8910 1112</div>
+        <div class="pan" title="4123 4567 8910 1112">{{cardDetails.card_number}}</div>
         <div class="first-digits"></div>
         <div class="exp-date-wrapper">
             <div class="left-label">EXPIRES END</div>
             <div class="exp-date">
                 <div class="upper-labels">MONTH/YEAR</div>
-                <div class="date" title="01/17">01/17</div>
+                <div class="date" title="01/20">{{cardDetails.card_mm}}/{{cardDetails.card_yyyy}}</div>
             </div>
         </div>
-        <div class="name-on-card" title="John Doe">John Doe</div>
+        <div class="name-on-card" title="Pritam">{{cardDetails.card_fName}} {{cardDetails.card_lName}}</div>
     </div>
     <div class="lines-down"></div>
     <div class="lines-up"></div>
 </div>
+<!-- 
+{{cardDetails | json}} -->

@@ -51,8 +51,11 @@ export class AppComponent implements OnInit {
       ])
     });
   } //end of constructor
-  get usercars() {
+  get userCars() {
     return this.vehicleData.get("vehicles") as FormArray;
+  }
+  get userDetails(){
+    return this.customerData.value;
   }
   get userCreditCards() {
     return this.customerData.get("cards").value;

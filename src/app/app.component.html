@@ -76,15 +76,15 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0.5em">
                       <mat-form-field class="input-field" fxFlex="33" appearance="outline">
                         <mat-label>Expiry Month</mat-label>
-                        <input matInput placeholder="MM" maxlength="2" formControlName="card_mm" required>
+                        <input matInput placeholder="MM" maxlength="2" max="12" formControlName="card_mm" required>
                       </mat-form-field>
                       <mat-form-field class="input-field" fxFlex="33" appearance="outline">
                         <mat-label>Expiry Year</mat-label>
-                        <input matInput placeholder="YYYY" maxlength="4" formControlName="card_yyyy" required>
+                        <input matInput placeholder="YYYY" maxlength="4" min="2020" formControlName="card_yyyy" required>
                       </mat-form-field>
                       <mat-form-field class="input-field" fxFlex="33" appearance="outline">
                         <mat-label>CVV</mat-label>
-                        <input matInput placeholder="CVV" maxlength="4" formControlName="card_cvv" required>
+                        <input matInput placeholder="CVV" maxlength="3" formControlName="card_cvv" required>
                       </mat-form-field>
                       <!-- <mat-form-field class="input-field" fxFlex appearance="outline">
                           <mat-label>Expiry</mat-label>
@@ -129,11 +129,11 @@
                     <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="2em" fxLayoutGap.lt-md="0.5em">
                       <mat-form-field class="input-field" appearance="outline" fxFlex>
                         <mat-label>Year of Purchase</mat-label>
-                        <input matInput placeholder="1998, 2002 etc."  formControlName="year" required>
+                        <input matInput placeholder="1998, 2002 etc." maxlength="4" max="2020" formControlName="year" required>
                       </mat-form-field>
                       <mat-form-field class="input-field" appearance="outline" fxFlex>
                         <mat-label>Total Run</mat-label>
-                        <input matInput placeholder="kilometeres completed"  formControlName="kms" required>
+                        <input matInput placeholder="kilometeres completed" min="0" max="999999" formControlName="kms" required>
                       </mat-form-field>
 
                     

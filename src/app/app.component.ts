@@ -20,14 +20,14 @@ export class AppComponent implements OnInit {
   secondFormGroup: FormGroup;
   constructor(private fb: FormBuilder){
     this.customerData = this.fb.group({
-      fName: [''],
-      lName: [''],
+      fName: ['', [ Validators.minLength(3)]],
+      lName: ['', [ Validators.minLength(3)]],
       address: this.fb.group({
       street: '',
       area: '',
       city: '',
       state: '',
-      zip: ''
+      zip: ['', [ Validators.minLength(6)]]
     }),
     cards: 
       this.fb.group({
